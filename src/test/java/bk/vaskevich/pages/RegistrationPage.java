@@ -19,6 +19,7 @@ public class RegistrationPage {
             emailInput = $("#userEmail"),
             mobileInput = $("#userNumber"),
             subjectsInput = $("#subjectsInput"),
+            uploadFile = $("#uploadPicture"),
             currentAddressInput = $("#currentAddress"),
             state = $("#state"),
             city = $("#city"),
@@ -60,6 +61,11 @@ public class RegistrationPage {
     }
 
     public RegistrationPage typeCurrentAddress(String value){
+        currentAddressInput.setValue(value);
+        return this;
+    }
+
+    public RegistrationPage selectSubjects(String value){
         subjectsInput.setValue(value);
         return this;
     }
@@ -69,8 +75,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage typeSubjects(String value){
-        currentAddressInput.setValue(value);
+    public RegistrationPage uploadFile(){
+        uploadFile.uploadFromClasspath("image/1.png");
         return this;
     }
 
