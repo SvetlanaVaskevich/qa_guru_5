@@ -60,6 +60,11 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setBirthDay(String day,String month,String year){
+        this.calendarComponent.setDate(day,month,year);
+        return this;
+    }
+
     public RegistrationPage typeCurrentAddress(String value){
         currentAddressInput.setValue(value);
         return this;
