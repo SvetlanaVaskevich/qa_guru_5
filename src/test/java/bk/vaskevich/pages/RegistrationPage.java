@@ -60,13 +60,20 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setBirthDay(String day,String month,String year){
+        calendarComponent.setDate(day,month,year);
+
+        return this;
+    }
+
     public RegistrationPage typeCurrentAddress(String value){
         currentAddressInput.setValue(value);
         return this;
     }
 
     public RegistrationPage selectSubjects(String value){
-        subjectsInput.setValue(value);
+        subjectsInput.click();
+        subjectsInput.setValue(value).pressEnter();
         return this;
     }
 
@@ -75,8 +82,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage uploadFile(){
-        uploadFile.uploadFromClasspath("image/1.png");
+    public RegistrationPage uploadFile(String filePath){
+        uploadFile.uploadFromClasspath(filePath);
         return this;
     }
 

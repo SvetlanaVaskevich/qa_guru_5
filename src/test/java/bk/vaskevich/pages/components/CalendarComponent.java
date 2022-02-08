@@ -10,8 +10,10 @@ public class CalendarComponent {
         $(".react-datepicker__month-select").click();
         $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day.react-datepicker__day--023").click();
+        //$(".react-datepicker__day.react-datepicker__day--023").click();
+        $(".left-pannel").scrollTo();
         String dayLocator = format(".react-datepicker__day--0%s:not(.react-datepicker__day--outside-month)",day);
         $(dayLocator).click();
+
     }
 }

@@ -1,59 +1,44 @@
 package bk.vaskevich.demoqa;
 
-import org.junit.jupiter.api.Tag;
+import bk.vaskevich.pages.RegistrationPage;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static io.qameta.allure.Allure.step;
+import static bk.vaskevich.demoqa.TestData.*;
 
 public class DemoqaTest extends TestBase{
 
+    RegistrationPage registrationPage = new RegistrationPage();
+
+    TestData testData = new TestData();
+
     @Test
     public void FillFormTest() {
-
-        step("Открываем страницу регистрации", () -> {
-            open("/automation-practice-form");
-            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        });
-        step("Заполняем имя и фамилию", () -> {
-            $("#firstName").setValue("Svetlana");
-            $("#lastName").setValue("Ivanova");
-        });
-        step("Заполняем почту", () -> {
-            $("#userEmail").setValue("mymail@bk.ru");
-        });
-        step("Заполняем пол", () -> {
-            $(byText("Female")).click();
-        });
-        step("Заполняем номер", () -> {
-            $("#userNumber").setValue("8999456123");
-        });
-        step("Заполняем дату рождения", () -> {
-            $("#dateOfBirthInput").click();
-            $(".react-datepicker__month-select").click();
-            $(".react-datepicker__month-select").selectOption("December");
-            $(".react-datepicker__year-select").selectOption("1987");
-            $(".react-datepicker__day.react-datepicker__day--023").click();
-        });
-        step("Заполняем данные о хобби", () -> {
-            $("#subjectsInput").setValue("English").pressEnter();
-            $(byText("Sports")).click();
-        });
-        step("Заполняем данные об адресе", () -> {
-            $("#currentAddress").setValue("Russia,Ekaterinburg").scrollTo();
-            $("#state").click();
-            $("#stateCity-wrapper").$(byText("NCR")).click();
-            $("#city").click();
-            $("#stateCity-wrapper").$(byText("Noida")).click();
-            $("#submit").click();
-        });
-        step("Проверка таблицы данных", () -> {
-            $(".table-responsive").shouldHave(text("Svetlana Ivanova"), text("mymail@bk.ru"),
-                    text("Female"), text("23 December,1987"), text("English"), text("Sports"),
-                    text("Russia,Ekaterinburg"), text("NCR Noida"));
-        });
+        //enter data
+        registrationPage.openPage()
+                .typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeEmail(email)
+                .selectGender(gender)
+                .typeMobile(phoneNumber)
+                .setBirthDay("20","December","1995")
+                .selectSubjects(subject)
+                .selectHobbies(hobbies)
+                .uploadFile(filePath)
+                .typeCurrentAddress(currentAddress)
+                .selectState(state)
+                .selectCity(city)
+                .enterSubmit();
+        //check results
+        registrationPage
+                .checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Student Email", email)
+                .checkResult("Gender",gender)
+                .checkResult("Mobile",phoneNumber)
+                .checkResult("Date of Birth","20 December,1995")
+                .checkResult("Subjects",subject)
+                .checkResult("Hobbies",hobbies)
+                .checkResult("Picture","1.png")
+                .checkResult("Address",currentAddress)
+                .checkResult("State and City",state + " " + city);
     }
 }
