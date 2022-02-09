@@ -9,10 +9,8 @@ public class DemoqaTest extends TestBase{
 
     RegistrationPage registrationPage = new RegistrationPage();
 
-    TestData testData = new TestData();
-
     @Test
-    public void FillFormTest() {
+    public void fillFormTest() {
         //enter data
         registrationPage.openPage()
                 .typeFirstName(firstName)
@@ -20,7 +18,7 @@ public class DemoqaTest extends TestBase{
                 .typeEmail(email)
                 .selectGender(gender)
                 .typeMobile(phoneNumber)
-                .setBirthDay("20","December","1995")
+                .setBirthDay(day,month,year)
                 .selectSubjects(subject)
                 .selectHobbies(hobbies)
                 .uploadFile(filePath)
@@ -34,7 +32,7 @@ public class DemoqaTest extends TestBase{
                 .checkResult("Student Email", email)
                 .checkResult("Gender",gender)
                 .checkResult("Mobile",phoneNumber)
-                .checkResult("Date of Birth","20 December,1995")
+                .checkResult("Date of Birth",day + " " + month + "," + year)
                 .checkResult("Subjects",subject)
                 .checkResult("Hobbies",hobbies)
                 .checkResult("Picture","1.png")
